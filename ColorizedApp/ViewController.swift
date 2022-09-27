@@ -23,33 +23,40 @@ class ViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        colorView.layer.cornerRadius = 10
+        colorView.layer.cornerRadius = 15
+        setColor()
+        setValue()
     }
     
     // MARK: - IBActions
-    @IBAction func redSliderAction() {
-        redValueLabel.text = String(format: "%.2f", redSlider.value)
+    @IBAction func sliderAction(_ sender: UISlider) {
+        setColor()
+        switch sender {
+        case redSlider:
+            redValueLabel.text = string(from: sender)
+        case greenSlider:
+            greenValueLabel.text = string(from: sender)
+        default:
+            blueValueLabel.text = string(from: sender)
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func setColor() {
         colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
                                             green: CGFloat(greenSlider.value),
                                             blue: CGFloat(blueSlider.value),
                                             alpha: 1.0)
     }
-    
-    @IBAction func greenSliderAction() {
-        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
-        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
-                                            green: CGFloat(greenSlider.value),
-                                            blue: CGFloat(blueSlider.value),
-                                            alpha: 1.0)
+
+    private func setValue() {
+        redValueLabel.text = string(from: redSlider)
+        greenValueLabel.text = string(from: greenSlider)
+        blueValueLabel.text = string(from: blueSlider)
     }
     
-    @IBAction func blueSliderAction() {
-        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
-        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value),
-                                            green: CGFloat(greenSlider.value),
-                                            blue: CGFloat(blueSlider.value),
-                                            alpha: 1.0)
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
 }
 
